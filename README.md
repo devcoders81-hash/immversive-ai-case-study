@@ -21,7 +21,7 @@ The system performs:
 | ----------------- | ----------------------------- |
 | OCR               | EasyOCR                       |
 | Embeddings        | BAAI/bge-m3                   |
-| Vector Store      | FAISS                         |
+| Vector Store      | Chroma DB                     |
 | Keyword Retrieval | BM25                          |
 | LLM               | Mistral / OpenAI Compatible   |
 | UI                | Streamlit                     |
@@ -105,7 +105,7 @@ torch
 torchvision
 opencv-python
 sentence-transformers
-faiss-cpu
+chromadb
 rank-bm25
 transformers
 streamlit
