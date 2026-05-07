@@ -1,3 +1,9 @@
+
+---
+
+# architecture.md
+
+```md
 # Architecture Documentation
 
 # System Overview
@@ -7,16 +13,16 @@ This project implements a production-oriented Conversational RAG pipeline for In
 The system performs:
 
 1. OCR extraction from manuscript images
-2. Text preprocessing and normalization
-3. Metadata-aware chunking
+2. Image preprocessing
+3. Text normalization and chunking
 4. Embedding generation
-5. Hybrid retrieval using FAISS + BM25
-6. Grounded answer generation using LLMs
-7. Conversational querying through Streamlit UI
+5. Hybrid retrieval using ChromaDB + BM25
+6. Grounded answer generation using Groq LLM
+7. Conversational querying using Streamlit
 
 ---
 
-# System Architecture
+# High-Level Architecture
 
 ```text
                 +-------------------+
@@ -25,20 +31,20 @@ The system performs:
                           |
                           v
                 +-------------------+
-                | OCR Pipeline      |
+                | Image             |
+                | Preprocessing     |
+                | OpenCV            |
+                +---------+---------+
+                          |
+                          v
+                +-------------------+
+                | OCR Engine        |
                 | EasyOCR           |
-                | OpenCV Processing |
                 +---------+---------+
                           |
                           v
                 +-------------------+
-                | Text Cleaning     |
-                | Unicode Normalize |
-                +---------+---------+
-                          |
-                          v
-                +-------------------+
-                | Chunking Engine   |
+                | Text Chunking     |
                 | Metadata Builder  |
                 +---------+---------+
                           |
@@ -50,13 +56,13 @@ The system performs:
                           |
                           v
                 +-------------------+
-                | Hybrid Retriever  |
-                | FAISS + BM25      |
+                | Hybrid Retrieval  |
+                | ChromaDB + BM25   |
                 +---------+---------+
                           |
                           v
                 +-------------------+
-                | LLM Generator     |
+                | Groq LLM          |
                 | Grounded Prompt   |
                 +---------+---------+
                           |
