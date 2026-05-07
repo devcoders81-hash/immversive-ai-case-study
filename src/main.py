@@ -1,6 +1,7 @@
 from pathlib import Path
 
 from ocr.ocr_engine import extract_text
+from ocr.preprocess import preprocess_image
 from ingestion.chunker import chunk_text
 from embeddings.embedder import EmbeddingModel
 from vectorstore.chroma_store import ChromaStore
@@ -19,11 +20,11 @@ all_chunks = []
 print("Starting OCR Pipeline...")
 
 for image_file in image_dir.glob("*"):
-
-    text = extract_text(
-        str(image_file)
-    )
-
+    processed_image=preprocess_image(str(image_file))
+    # text = extract_text(
+    #     str(image_file)
+    # )
+    text=extract_text(processed_image)
     output_file = output_dir / f"{image_file.stem}.txt"
 
     with open(output_file, "w", encoding="utf-8") as f:
